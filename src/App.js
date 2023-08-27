@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import SCP from './SCP.json';
+import Scp from './Scp';
+import Header from './Header';
+import Nav from './Nav'; 
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="container mt-4">
+        <Header /> 
+        <Routes>
+          <Route path="/" element={<Nav />} />
+          {SCP.map((scp) => (
+            <Route
+              key={scp.id}
+              path={`/scp/${scp.id}`}
+              element={
+                <Scp
+                  subject={scp.subject}
+                  class={scp.class}
+                  description={scp.description}
+                  containment={scp.containment}
+                  additional ={scp.additional}
+                  images={scp.images}
+                />
+              }
+            />
+          ))}
+        </Routes>
+      </div>
     </div>
   );
 }
